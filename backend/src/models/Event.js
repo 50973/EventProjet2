@@ -1,5 +1,5 @@
 import { DataTypes, Model} from 'sequelize'; 
-import sequelize from '../congig/db.js';
+import sequelize from '../config/db.js';
 
 class Event extends Model {
     /**
@@ -79,7 +79,7 @@ Event.init(
             allowNull: true,
         },
         location: {
-            types: DataTypes.STRING(500),
+            type: DataTypes.STRING(500),
             allowNull: true,
         },
         start_datetime: {
@@ -140,6 +140,7 @@ Event.init(
       { fields: ['start_datetime'] },
       { fields: ['price'] },
     ],
- }
+  }
 );
-}
+
+export default Event;

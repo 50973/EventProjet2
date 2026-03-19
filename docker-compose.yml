@@ -1,0 +1,116 @@
+services:
+  # ==================================
+  # Base de données MySQL
+  # ==================================
+  mysql:
+    image: mysql:8.0
+    container_name: eventdkc2_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${DB_NAME:-eventdkc2_db}
+      MYSQL_USER: ${DB_USER:-eventdkc2_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-password}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
+  # ==================================
+  # Redis (cache et sessions)
+  # ==================================
+  redis:
+    image: redis:7-alpine
+    container_name: eventdkc2_redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-destin}
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-destin}", "ping"]
+      interval: 20s
+      timeout: 15s
+      retries: 5
+    networks:
+      - app-network
+
+  # ==================================
+  # Backend API (Node.js)
+  # ==================================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: eventdkc2_backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: ${DB_USER:-eventdkc2_user}
+      DB_PASSWORD: ${DB_PASSWORD:-password}
+      DB_NAME: ${DB_NAME:-eventdkc2_db}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-destin}
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:-your_jwt_access_secret}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-your_jwt_refresh_secret}
+      JWT_ACCESS_EXP: ${JWT_ACCESS_EXP:-15m}
+      JWT_REFRESH_EXP: ${JWT_REFRESH_EXP:-30d}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./backend/logs:/app/logs
+    ports:
+      - "4000:4000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  # ==================================
+  # Frontend (React)
+  # ==================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: eventdkc2_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+# ==================================
+# Volumes persistants
+# ==================================
+volumes:
+  mysql_data:
+    name: eventdkc2_mysql_data
+  redis_data:
+    name: eventdkc2_redis_data
+
+# ==================================
+# Réseau
+# ==================================
+networks:
+  app-network:
+    driver: bridge
+    name: eventdkc2_network

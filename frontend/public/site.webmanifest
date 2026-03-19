@@ -1,0 +1,27 @@
+{
+  "name": "OneLastEvent - Créez et réservez des événements inoubliables",
+  "short_name": "OneLastEvent",
+  "description": "Plateforme de réservation et création d'événements",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#22c55e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["events", "entertainment", "lifestyle"],
+  "lang": "fr-FR",
+  "dir": "ltr"
+}

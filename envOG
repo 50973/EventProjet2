@@ -1,0 +1,49 @@
+# ==========================================
+# ENVIRONMENT
+# ==========================================
+NODE_ENV=production
+
+# ==========================================
+# SERVER CONFIGURATION
+# ==========================================
+PORT=4000
+HOST=0.0.0.0
+
+# ==========================================
+# DATABASE CONFIGURATION
+# ==========================================
+DB_HOST=mysql
+DB_PORT=3307
+DB_NAME=eventdkc2
+DB_USER=admin
+DB_PASSWORD=password
+DB_ROOT_PASSWORD=root
+
+# ==========================================
+# REDIS CONFIGURATION
+# ==========================================
+REDIS_HOST=redis
+REDIS_PORT=6379
+REDIS_PASSWORD=destin
+# ==========================================
+# JWT CONFIGURATION
+# ==========================================
+JWT_ACCESS_SECRET=your_jwt_secret_key_change_this_in_production
+JWT_REFRESH_SECRET=your_jwt_refresh_secret_change_this_in_production
+JWT_ACCESS_EXP=15m
+JWT_REFRESH_EXP=30d
+# ==========================================
+# FRONTEND CONFIGURATION
+# ==========================================
+FRONTEND_URL=http://localhost:3000
+
+# ==========================================
+# LOGGING
+# ==========================================
+LOG_LEVEL=info
+
+# ==========================================
+# STRIPE (if used)
+# ==========================================
+STRIPE_SECRET_KEY=your_stripe_secret_key_here
+STRIPE_PUBLIC_KEY=your_stripe_public_key_here

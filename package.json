@@ -1,0 +1,14 @@
+{
+  "name": "eventdkc2",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\""
+  },
+  "dependencies": {
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}

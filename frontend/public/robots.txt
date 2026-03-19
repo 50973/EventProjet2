@@ -1,0 +1,33 @@
+# ============================================
+# ROBOTS.TXT - EventDKC2
+# Guide les crawlers des moteurs de recherche
+# ============================================
+
+# Autoriser tous les robots
+User-agent: *
+Allow: /
+
+# Pages à ne pas indexer
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /dashboard
+Disallow: /organizer
+Disallow: /admin
+Disallow: /settings
+Disallow: /api/
+Disallow: /uploads/private/
+
+# Fichiers autorisés (même dans les dossiers interdits)
+Allow: /api/public/
+Allow: /uploads/public/
+
+# Sitemap (à créer après déploiement)
+Sitemap: https://onelastevent.com/sitemap.xml
+
+# ============================================
+# NOTES :
+# - Décommentez les lignes pour bloquer l'accès
+# - Ajoutez votre vrai domaine dans Sitemap
+# - Testez avec Google Search Console
+# ============================================

@@ -1,5 +1,5 @@
-import { DataTypess, Model} from 'sequelize';
-import sequelize from '../config/dbjs';
+import { DataTypes, Model} from 'sequelize';
+import sequelize from '../config/db.js';
 
 class Inscription extends Model {
     isConfirmed() {
@@ -17,7 +17,7 @@ class Inscription extends Model {
             userId: this.user_id,
             status: this.status,
             notes: this.notes,
-            created
+            createdAt: this.created_at,
         };
     }
 }
@@ -37,11 +37,18 @@ Inscription.init(
                 key: 'id',
             },
         },
+        user_id: {
+            type: DataTypes.UUID,
+            allowNull: false,
+            references: {
+                model: 'users',
+                key: 'id',
+            },
+        },
         status: {
-            type: DataTypes.ENUM('PENDING', 'CONFIRMED',
-                'CANCELLED'),
-                defaultValue: 'PENDING',
-                allowNull: false,
+            type: DataTypes.ENUM('PENDING', 'CONFIRMED', 'CANCELLED'),
+            defaultValue: 'PENDING',
+            allowNull: false,
         },
         notes: {
             type: DataTypes.TEXT,
@@ -58,8 +65,9 @@ Inscription.init(
             { fields: ['event_id'] },
             { fields: ['user_id'] },
             { fields: ['status'] },
-            { fields: ['event_id', 'user_id'], unique:
-                true },
-            ],
-        }
+            { fields: ['event_id', 'user_id'], unique: true },
+        ],
+    }
 );
+
+export default Inscription;

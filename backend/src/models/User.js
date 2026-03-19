@@ -63,7 +63,7 @@ User.init(
             },
         },
         password_hash: {
-            types: DataTypes.STRING(255),
+            type: DataTypes.STRING(255),
             allowNull: false,
         },
         full_name:{
@@ -115,3 +115,5 @@ User.init(
         ],
     }
 );
+
+export default User;
