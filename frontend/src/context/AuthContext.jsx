@@ -87,7 +87,7 @@ export function AuthProvider({ children }) {
       localStorage.setItem('refreshToken', refreshToken);
       setUser(user);
 
-      toast.success('Inscription réussie ! Bienvenue sur OneLastEvent !');
+      toast.success('Inscription réussie ! Bienvenue sur Eventopia !');
       return { success: true };
     } catch (error) {
       const message = error.response?.data?.error || 'Échec de l\'inscription';

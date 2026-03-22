@@ -18,8 +18,8 @@ const REFRESH_EXP = process.env.JWT_REFRESH_EXP || '30d';
 export function generateAccessToken(payload) {
   return jwt.sign(payload, ACCESS_SECRET, {
     expiresIn: ACCESS_EXP,
-    issuer: 'onelastevent',      // Émetteur du token
-    audience: 'onelastevent-users', // Destinataire prévu
+    issuer: 'eventopia',
+    audience: 'eventopia-users',
   });
 }
 
@@ -31,8 +31,8 @@ export function generateAccessToken(payload) {
 export function generateRefreshToken(payload) {
   return jwt.sign(payload, REFRESH_SECRET, {
     expiresIn: REFRESH_EXP,
-    issuer: 'onelastevent',
-    audience: 'onelastevent-users',
+    issuer: 'eventopia',
+    audience: 'eventopia-users',
   });
 }
 
@@ -44,8 +44,8 @@ export function generateRefreshToken(payload) {
  */
 export function verifyAccessToken(token) {
   return jwt.verify(token, ACCESS_SECRET, {
-    issuer: 'onelastevent',
-    audience: 'onelastevent-users',
+    issuer: 'eventopia',
+    audience: 'eventopia-users',
   });
 }
 
@@ -57,8 +57,8 @@ export function verifyAccessToken(token) {
  */
 export function verifyRefreshToken(token) {
   return jwt.verify(token, REFRESH_SECRET, {
-    issuer: 'onelastevent',
-    audience: 'onelastevent-users',
+    issuer: 'eventopia',
+    audience: 'eventopia-users',
   });
 }
 

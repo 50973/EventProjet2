@@ -1,7 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/db.js';
-import User from './User.js'; // Assurez-vous d'importer le modèle User
-
 class RefreshToken extends Model {
     isValid() {
         return !this.revoked && new Date(this.expires_at).getTime() > Date.now();
@@ -58,8 +56,5 @@ RefreshToken.init(
         ],
     }
 );
-
-// Association
-RefreshToken.belongsTo(User, { foreignKey: 'user_id' });
 
 export default RefreshToken;

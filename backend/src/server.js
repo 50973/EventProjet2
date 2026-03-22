@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -18,6 +20,9 @@ import routes from './routes/index.js';
 
 // Import models pour initialiser les associations
 import './models/index.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -48,6 +53,9 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Request logging
 app.use(requestLogger);
+
+// Servir les fichiers uploadés
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Rate limiting global
 app.use('/api', defaultLimiter);

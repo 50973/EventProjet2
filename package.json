@@ -1,12 +1,10 @@
 {
-  "name": "eventdkc2",
+  "name": "eventopia",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\""
-  },
-  "dependencies": {
-    "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "dev": "concurrently \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
+    "migrate": "npm --prefix backend run migrate",
+    "seed": "npm --prefix backend run seed"
   },
   "devDependencies": {
     "concurrently": "^8.2.0"

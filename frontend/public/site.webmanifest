@@ -1,6 +1,6 @@
 {
-  "name": "OneLastEvent - Créez et réservez des événements inoubliables",
-  "short_name": "OneLastEvent",
+  "name": "Eventopia - Créez et réservez des événements inoubliables",
+  "short_name": "Eventopia",
   "description": "Plateforme de réservation et création d'événements",
   "start_url": "/",
   "display": "standalone",

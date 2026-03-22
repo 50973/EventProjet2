@@ -118,6 +118,43 @@ class UserService {
   }
 
   /**
+   * Obtenir les inscriptions d'un utilisateur
+   * @param {string} userId - ID de l'utilisateur
+   * @param {Object} options - Options de pagination
+   * @returns {Promise<Object>}
+   */
+  async getInscriptions(userId, options = {}) {
+    const { Inscription, Event } = await import('../models/index.js');
+    const page = parseInt(options.page, 10) || 1;
+    const limit = parseInt(options.limit, 10) || 20;
+
+    const { count, rows } = await Inscription.findAndCountAll({
+      where: { user_id: userId },
+      order: [['created_at', 'DESC']],
+      limit,
+      offset: (page - 1) * limit,
+      include: [
+        {
+          model: Event,
+          as: 'event',
+          attributes: ['id', 'title', 'start_datetime', 'location', 'price', 'status', 'image_url'],
+        },
+      ],
+    });
+
+    return {
+      inscriptions: rows.map((i) => ({
+        ...i.toPublicJSON(),
+        event: i.event ? i.event.toPublicJSON() : null,
+      })),
+      total: count,
+      page,
+      limit,
+      totalPages: Math.ceil(count / limit),
+    };
+  }
+
+  /**
    * Lister les utilisateurs (admin uniquement)
    * @param {Object} options - Options de pagination/filtrage
    * @returns {Promise<Object>}

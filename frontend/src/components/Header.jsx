@@ -47,7 +47,7 @@ function Header() {
                 <CalendarIcon className="w-6 h-6 text-white drop-shadow-sm" />
               </div>
               <span className="text-xl font-bold gradient-text-animated group-hover:scale-105 transition-transform">
-                OneLastEvent
+                Eventopia
               </span>
             </Link>
 

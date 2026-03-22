@@ -1,7 +1,7 @@
 # ==================================
 # Stage 1 : Dépendances de production
 # ==================================
-FROM node:18-alpine AS dependencies
+FROM node:20-alpine AS dependencies
 
 WORKDIR /app
 
@@ -9,12 +9,12 @@ WORKDIR /app
 COPY package*.json ./
 
 # Installer uniquement les dépendances de production
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
 # ==================================
 # Stage 2 : Image finale
 # ==================================
-FROM node:18-alpine
+FROM node:20-alpine
 
 # Créer un utilisateur non-root pour la sécurité
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup

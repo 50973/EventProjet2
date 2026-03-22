@@ -51,7 +51,7 @@ function Footer() {
           <div className="col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-4">
               <CalendarIcon className="w-8 h-8 text-primary-500" />
-              <span className="text-xl font-bold text-white">OneLastEvent</span>
+              <span className="text-xl font-bold text-white">Eventopia</span>
             </Link>
             <p className="text-neutral-400 text-sm mb-4">
               Créez et réservez des événements inoubliables. 
@@ -62,7 +62,7 @@ function Footer() {
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-neutral-400 text-sm">
                 <EnvelopeIcon className="w-4 h-4" />
-                <span>contact@onelastevent.com</span>
+                <span>contact@eventopia.com</span>
               </div>
               <div className="flex items-center gap-2 text-neutral-400 text-sm">
                 <PhoneIcon className="w-4 h-4" />
@@ -143,7 +143,7 @@ function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Copyright */}
             <p className="text-neutral-500 text-sm">
-              © {currentYear} OneLastEvent. Tous droits réservés.
+              © {currentYear} Eventopia. Tous droits réservés.
             </p>
 
             {/* Social links */}

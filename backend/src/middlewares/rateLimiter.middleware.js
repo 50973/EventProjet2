@@ -56,11 +56,10 @@ export const eventCreationLimiter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
-   keyGenerator: (req) => {
-    const forwarded = req.headers['x-forwarded-for'];
-    const ip = forwarded ? forwarded.split(',')[0] : req.ip;
-    return req.userId || ipKeyGenerator(req);
-  }, // Limiter par utilisateur
+  keyGenerator: (req) => {
+    return req.userId || req.ip;
+  },
+  validate: { ipKeyGenerator: false },
   handler: (req, res) => {
     res.status(429).json({
       error: 'Event creation limit reached, please try again later.',

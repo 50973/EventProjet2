@@ -104,7 +104,7 @@ User.init(
         sequelize,
         modelName: 'User',
         tableName: 'users',
-        timestampes: true,
+        timestamps: true,
         underscored: true,
         // Index pour optimiser les recherches
         indexes: [

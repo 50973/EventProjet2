@@ -24,8 +24,8 @@ class EventController {
         sortOrder: req.query.sortOrder,
       };
 
-      // inclure les brouillons pour l'organisateur connecté
-      if (req.userId) {
+      // inclure les brouillons uniquement pour l'organisateur connecté (ses propres événements)
+      if (req.userId && req.query.organizerId === req.userId) {
         options.includeUnpublished = true;
       }
 

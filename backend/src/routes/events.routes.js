@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import EventController from '../controllers/EventController.js';
+import InscriptionController from '../controllers/InscriptionController.js';
 import { validate } from '../middlewares/validate.middleware.js';
 import { authenticate, optionalAuth } from '../middlewares/auth.middleware.js';
 import { requireOrganizer } from '../middlewares/role.middleware.js';
@@ -12,6 +13,7 @@ import {
   publishEventSchema,
   deleteEventSchema,
 } from '../validators/event.validator.js';
+import { registerForEventSchema } from '../validators/inscription.validator.js';
 
 const router = Router();
 
@@ -99,6 +101,18 @@ router.post(
   authenticate,
   validate(publishEventSchema),
   EventController.publishEvent
+);
+
+/**
+ * @route POST /api/events/:eventId/inscriptions
+ * @desc S'inscrire à un événement
+ * @access Private
+ */
+router.post(
+  '/:eventId/inscriptions',
+  authenticate,
+  validate(registerForEventSchema),
+  InscriptionController.register
 );
 
 export default router;

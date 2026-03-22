@@ -5,7 +5,7 @@ dotenv.config();
 
 // Configuration de sequelize pour se connecter à la base de données MySQL
 const sequelize = new Sequelize(
-    process.env.DB_NAME || 'eventdkc2_db',
+    process.env.DB_NAME || 'eventopia_db',
     process.env.DB_USER || 'root',
     process.env.DB_PASSWORD || '',
     {

@@ -7,7 +7,6 @@ import {
   HeartIcon,
   ChatBubbleLeftRightIcon,
   ShareIcon,
-  BellIcon,
   PlusIcon,
   ArrowRightIcon,
 } from '@heroicons/react/24/outline';
@@ -27,50 +26,14 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-neutral-950">
-      {/* HEADER TYPE RÉSEAU SOCIAL */}
-      <header className="sticky top-0 z-50 bg-neutral-950/80 backdrop-blur-xl border-b border-neutral-800/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo + Navigation */}
-            <div className="flex items-center gap-8">
-              <Link to="/" className="flex items-center gap-2">
-                <span className="text-2xl font-bold gradient-text-animated">OneLastEvent</span>
-              </Link>
-              
-              {/* Navigation */}
-              <nav className="hidden md:flex items-center gap-6">
-                <Link to="/events" className="text-neutral-300 hover:text-white transition-colors flex items-center gap-2">
-                  <CalendarIcon className="w-5 h-5" />
-                  <span>Événements</span>
-                </Link>
-                <Link to="/dashboard" className="text-neutral-300 hover:text-white transition-colors flex items-center gap-2">
-                  <UserGroupIcon className="w-5 h-5" />
-                  <span>Communauté</span>
-                </Link>
-              </nav>
-            </div>
-
-            {/* Actions */}
-            <div className="flex items-center gap-4">
-              <button className="p-2 text-neutral-400 hover:text-white transition-colors relative">
-                <BellIcon className="w-6 h-6" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-primary-500 rounded-full animate-pulse" />
-              </button>
-              <Link to="/login" className="btn-ghost btn-sm">Connexion</Link>
-              <Link to="/register" className="btn-primary btn-sm">S'inscrire</Link>
-            </div>
-          </div>
-        </div>
-      </header>
-
       {/* HERO SECTION ULTRA-MODERNE */}
       <section className="relative py-20 px-4 overflow-hidden">
         <div className="max-w-6xl mx-auto text-center">
           {/* Titre Principal avec effets spectaculaires */}
           <div className="mb-8 fade-in">
             <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black mb-6">
-              <span className="block gradient-text-animated mb-2">OneLast</span>
-              <span className="block text-white drop-shadow-2xl">Event</span>
+              <span className="block gradient-text-animated mb-2">Event</span>
+              <span className="block text-white drop-shadow-2xl">opiaea</span>
             </h1>
             <p className="text-xl sm:text-2xl text-neutral-300 max-w-3xl mx-auto leading-relaxed fade-in-delay-1">
               La plateforme ultime pour découvrir et créer des
@@ -348,20 +311,6 @@ function Home() {
         </div>
       </section>
 
-      {/* FOOTER SIMPLIFIÉ */}
-      <footer className="py-8 px-4 border-t border-neutral-800/50 mt-12">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-neutral-500 text-sm">
-            © 2024 OneLastEvent. Fait avec ❤️ pour la communauté
-          </p>
-          <div className="flex items-center justify-center gap-6 mt-4">
-            <Link to="/about" className="text-neutral-400 hover:text-white text-sm">À propos</Link>
-            <Link to="/privacy" className="text-neutral-400 hover:text-white text-sm">Confidentialité</Link>
-            <Link to="/terms" className="text-neutral-400 hover:text-white text-sm">Conditions</Link>
-            <Link to="/help" className="text-neutral-400 hover:text-white text-sm">Aide</Link>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

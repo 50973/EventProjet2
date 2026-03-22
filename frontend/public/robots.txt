@@ -1,5 +1,5 @@
 # ============================================
-# ROBOTS.TXT - EventDKC2
+# ROBOTS.TXT - Eventopia
 # Guide les crawlers des moteurs de recherche
 # ============================================
 
@@ -23,7 +23,7 @@ Allow: /api/public/
 Allow: /uploads/public/
 
 # Sitemap (à créer après déploiement)
-Sitemap: https://onelastevent.com/sitemap.xml
+Sitemap: https://eventopia.com/sitemap.xml
 
 # ============================================
 # NOTES :

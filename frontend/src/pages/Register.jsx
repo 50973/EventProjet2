@@ -90,7 +90,7 @@ function Register() {
             Créer un compte
           </h1>
           <p className="text-neutral-400">
-            Rejoignez OneLastEvent gratuitement
+            Rejoignez Eventopia gratuitement
           </p>
         </div>
 

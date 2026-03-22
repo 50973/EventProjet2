@@ -13,7 +13,7 @@ class Event extends Model {
      * vérifier s'il reste de la place
      */
     hasCapacity() {
-        return this.cerrent_participants < this.capacity;
+        return this.current_participants < this.capacity;
     }
 
    /**
@@ -27,8 +27,7 @@ class Event extends Model {
     * Obtenir le nombre de places restantes
     */
    getRemainingSpots() {
-    return Math.max(0, this.capacity - this.
-        current_participants)
+    return Math.max(0, this.capacity - this.current_participants);
    }
   /**
    * Convertir en JSON public
@@ -42,7 +41,7 @@ class Event extends Model {
             startDatetime: this.start_datetime,
             endDatetime: this.end_datetime,
             capacity: this.capacity,
-            currentParticipant: this.current_participant,
+            currentParticipants: this.current_participants,
             remainingSpots: this.getRemainingSpots(),
             price: this.price,
             currency: this.currency,
@@ -50,7 +49,7 @@ class Event extends Model {
             imageUrl: this.image_url,
             organizerId: this.organizer_id,
             createdAt: this.created_at,
-            updateAt: this.update_at,
+            updatedAt: this.updated_at,
         };
     }
 }
@@ -98,7 +97,7 @@ Event.init(
                 min: 1,
             },
         },
-        current_paticipants: {
+        current_participants: {
             type: DataTypes.INTEGER,
             allowNull: false,
             defaultValue: 0,

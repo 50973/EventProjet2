@@ -4,12 +4,12 @@ services:
   # ==================================
   mysql:
     image: mysql:8.0
-    container_name: eventdkc2_mysql
+    container_name: eventopia_mysql
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword}
-      MYSQL_DATABASE: ${DB_NAME:-eventdkc2_db}
-      MYSQL_USER: ${DB_USER:-eventdkc2_user}
+      MYSQL_DATABASE: ${DB_NAME:-eventopia_db}
+      MYSQL_USER: ${DB_USER:-eventopia_user}
       MYSQL_PASSWORD: ${DB_PASSWORD:-password}
     volumes:
       - mysql_data:/var/lib/mysql
@@ -28,7 +28,7 @@ services:
   # ==================================
   redis:
     image: redis:7-alpine
-    container_name: eventdkc2_redis
+    container_name: eventopia_redis
     restart: unless-stopped
     command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-destin}
     volumes:
@@ -50,16 +50,16 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: eventdkc2_backend
+    container_name: eventopia_backend
     restart: unless-stopped
     environment:
       NODE_ENV: production
       PORT: 4000
       DB_HOST: mysql
       DB_PORT: 3306
-      DB_USER: ${DB_USER:-eventdkc2_user}
+      DB_USER: ${DB_USER:-eventopia_user}
       DB_PASSWORD: ${DB_PASSWORD:-password}
-      DB_NAME: ${DB_NAME:-eventdkc2_db}
+      DB_NAME: ${DB_NAME:-eventopia_db}
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_PASSWORD: ${REDIS_PASSWORD:-destin}
@@ -89,7 +89,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: eventdkc2_frontend
+    container_name: eventopia_frontend
     restart: unless-stopped
     ports:
       - "3000:80"
@@ -103,9 +103,9 @@ services:
 # ==================================
 volumes:
   mysql_data:
-    name: eventdkc2_mysql_data
+    name: eventopia_mysql_data
   redis_data:
-    name: eventdkc2_redis_data
+    name: eventopia_redis_data
 
 # ==================================
 # Réseau
@@ -113,4 +113,4 @@ volumes:
 networks:
   app-network:
     driver: bridge
-    name: eventdkc2_network
+    name: eventopia_network

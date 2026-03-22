@@ -28,7 +28,6 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="events" element={<EventList />} />
-            <Route path="events/:id" element={<EventDetails />} />
 
             {/* Routes protégées - tout utilisateur authentifié */}
             <Route element={<ProtectedRoute />}>
@@ -41,6 +40,9 @@ function App() {
               <Route path="organizer" element={<DashboardOrganizer />} />
               <Route path="events/create" element={<CreateEvent />} />
             </Route>
+
+            {/* Route dynamique après les routes statiques */}
+            <Route path="events/:id" element={<EventDetails />} />
 
             {/* 404 */}
             <Route path="*" element={<NotFound />} />
