@@ -1,0 +1,23 @@
+$kind: http-request
+name: Get Category by ID
+method: GET
+url: '{{baseUrl}}/api/categories/{{categoryId1}}'
+order: 5000
+headers:
+  - key: Authorization
+    value: 'Bearer {{accessToken}}'
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response has category with correct id and name Concert", function () {
+          const json = pm.response.json();
+          const category = json.category || json;
+          const expectedId = pm.collectionVariables.get("categoryId1");
+          pm.expect(String(category.id)).to.eql(String(expectedId));
+          pm.expect(category.name).to.eql("Concert");
+      });
+    language: text/javascript

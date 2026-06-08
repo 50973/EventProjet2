@@ -1,0 +1,31 @@
+$kind: http-request
+name: Get Current User
+method: GET
+url: '{{baseUrl}}/auth/me'
+order: 4000
+headers:
+  - key: Authorization
+    value: 'Bearer {{accessToken}}'
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response has user object", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("user");
+          const user = json.user;
+          pm.expect(user).to.have.property("id");
+          pm.expect(user).to.have.property("email");
+          pm.expect(user).to.have.property("fullName");
+          pm.expect(user).to.have.property("role");
+          pm.expect(user).to.have.property("createdAt");
+      });
+
+      pm.test("User ID matches saved ID", function () {
+          const user = pm.response.json().user;
+          pm.expect(user.id).to.eql(pm.collectionVariables.get("userId"));
+      });
+    language: text/javascript

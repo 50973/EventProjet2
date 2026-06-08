@@ -1,0 +1,29 @@
+$kind: http-request
+name: Update Category
+method: PATCH
+url: '{{baseUrl}}/api/categories/{{categoryId3}}'
+order: 6000
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{accessToken}}'
+body:
+  type: json
+  content: |-
+    {
+      "name": "Conférence Tech"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response has updated category with name Conférence Tech", function () {
+          const json = pm.response.json();
+          const category = json.category || json;
+          pm.expect(category.name).to.eql("Conférence Tech");
+      });
+    language: text/javascript

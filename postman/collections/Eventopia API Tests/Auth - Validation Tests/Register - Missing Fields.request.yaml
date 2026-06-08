@@ -1,0 +1,26 @@
+$kind: http-request
+name: Register - Missing Fields
+method: POST
+url: '{{baseUrl}}/auth/register'
+order: 1000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "incomplete@test.com"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 400", function () {
+          pm.response.to.have.status(400);
+      });
+
+      pm.test("Response has error", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("error");
+      });
+    language: text/javascript

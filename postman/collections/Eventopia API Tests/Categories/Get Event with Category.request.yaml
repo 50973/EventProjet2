@@ -1,0 +1,28 @@
+$kind: http-request
+name: Get Event with Category
+method: GET
+url: '{{baseUrl}}/api/events/{{categoryEventId}}'
+order: 8000
+headers:
+  - key: Authorization
+    value: 'Bearer {{accessToken}}'
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response has event", function () {
+          const json = pm.response.json();
+          const event = json.event || json;
+          pm.expect(event).to.have.property("id");
+      });
+
+      pm.test("Event has category reference", function () {
+          const json = pm.response.json();
+          const event = json.event || json;
+          const hasCategory = event.hasOwnProperty("category") || event.hasOwnProperty("category_id") || event.hasOwnProperty("categoryId");
+          pm.expect(hasCategory, "Event should have a category or category_id field").to.be.true;
+      });
+    language: text/javascript

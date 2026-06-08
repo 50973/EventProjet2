@@ -1,0 +1,36 @@
+$kind: http-request
+name: Create Category - Concert
+method: POST
+url: '{{baseUrl}}/api/categories'
+order: 1000
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{accessToken}}'
+body:
+  type: json
+  content: |-
+    {
+      "name": "Concert"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 201", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("Response has category with id and name Concert", function () {
+          const json = pm.response.json();
+          const category = json.category || json;
+          pm.expect(category).to.have.property("id");
+          pm.expect(category.name).to.eql("Concert");
+      });
+
+      pm.test("Save categoryId1", function () {
+          const json = pm.response.json();
+          const category = json.category || json;
+          pm.collectionVariables.set("categoryId1", category.id);
+      });
+    language: text/javascript

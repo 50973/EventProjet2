@@ -33,7 +33,7 @@ function Home() {
           <div className="mb-8 fade-in">
             <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black mb-6">
               <span className="block gradient-text-animated mb-2">Event</span>
-              <span className="block text-white drop-shadow-2xl">opiaea</span>
+              <span className="block text-white drop-shadow-2xl">opia</span>
             </h1>
             <p className="text-xl sm:text-2xl text-neutral-300 max-w-3xl mx-auto leading-relaxed fade-in-delay-1">
               La plateforme ultime pour découvrir et créer des

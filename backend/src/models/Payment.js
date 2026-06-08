@@ -20,7 +20,7 @@ Payment.init(
     },
     user_id: {
       type: DataTypes.UUID,
-      allowNull: true, // necessary for ON DELETE SET NULL foreign key behavior
+      allowNull: true, // necessary for ON DELETE  foreign key behavior
     },
     event_id: {
       type: DataTypes.UUID,

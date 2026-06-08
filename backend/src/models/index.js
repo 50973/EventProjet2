@@ -5,6 +5,7 @@ import Event from './Event.js';
 import Inscription from './Inscription.js';
 import Payment from './Payment.js';
 import RefreshToken from './RefreshToken.js';
+import Category from './Category.js';
 
 // ========================================
 // DÉFINITION DES ASSOCIATIONS
@@ -81,6 +82,16 @@ RefreshToken.belongsTo(User, {
   as: 'user',
 });
 
+Category.hasMany(Event, {
+  foreignKey: 'category_id',
+  as: 'events',
+  onDelete: 'SET NULL',
+});
+Event.belongsTo(Category, {
+  foreignKey: 'category_id',
+  as: 'category',
+});
+
 // Many-to-Many : User participe à Events via Inscriptions
 User.belongsToMany(Event, {
   through: Inscription,
@@ -103,6 +114,7 @@ export {
   Inscription,
   Payment,
   RefreshToken,
+  Category,
 };
 
 export default {
@@ -112,4 +124,5 @@ export default {
   Inscription,
   Payment,
   RefreshToken,
+  Category,
 };

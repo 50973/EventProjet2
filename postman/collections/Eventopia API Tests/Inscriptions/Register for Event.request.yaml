@@ -1,0 +1,31 @@
+$kind: http-request
+name: Register for Event
+method: POST
+url: '{{baseUrl}}/events/{{eventId}}/register'
+order: 1000
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{accessToken}}'
+body:
+  type: json
+  content: |-
+    {
+      "ticketType": "STANDARD"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 201", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("Response has inscription", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("inscription");
+          const inscription = json.inscription;
+          pm.expect(inscription).to.have.property("id");
+          pm.collectionVariables.set("inscriptionId", inscription.id);
+      });
+    language: text/javascript

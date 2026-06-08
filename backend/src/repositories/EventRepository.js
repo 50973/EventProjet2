@@ -83,6 +83,7 @@ class EventRepository {
       startDate,
       endDate,
       organizerId,
+      categoryId,
       sortBy = 'start_datetime',
       sortOrder = 'asc',
       includeUnpublished = false,
@@ -100,6 +101,11 @@ class EventRepository {
     // Filtrer par organisateur
     if (organizerId) {
       where.organizer_id = organizerId;
+    }
+
+    // Filtrer par catégorie
+    if (categoryId) {
+      where.category_id = categoryId;
     }
 
     // Recherche textuelle
@@ -143,6 +149,12 @@ class EventRepository {
           as: 'organizer',
           attributes: ['id', 'full_name', 'avatar_url'],
         },
+        {
+          model: Category,
+          as: 'category',
+          attributes: ['id', 'name'],
+        },
+
       ],
     });
 

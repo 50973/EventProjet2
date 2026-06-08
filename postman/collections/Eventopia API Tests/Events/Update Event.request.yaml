@@ -1,0 +1,33 @@
+$kind: http-request
+name: Update Event
+method: PUT
+url: '{{baseUrl}}/events/{{eventId}}'
+order: 4000
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{accessToken}}'
+body:
+  type: json
+  content: |-
+    {
+      "title": "Test Event Eventopia - Updated",
+      "description": "Description mise à jour",
+      "capacity": 200,
+      "status": "PUBLISHED"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Event is updated", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("event");
+          const event = json.event;
+          pm.expect(event.title).to.eql("Test Event Eventopia - Updated");
+      });
+    language: text/javascript

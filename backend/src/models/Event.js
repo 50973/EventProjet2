@@ -50,6 +50,7 @@ class Event extends Model {
             organizerId: this.organizer_id,
             createdAt: this.created_at,
             updatedAt: this.updated_at,
+            categoryId: this.category_id,
         };
     }
 }
@@ -125,6 +126,14 @@ Event.init(
       type: DataTypes.JSON,
       allowNull: true,
       defaultValue: [],
+    },
+    category_id: {
+      type: DataTypes.UUID,
+      allowNull: true,
+      references: {
+        model: 'category',
+        key: 'id',
+      },
     },
   },
   {

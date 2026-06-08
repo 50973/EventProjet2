@@ -66,9 +66,6 @@ app.use('/api', routes);
 // Handler 404
 app.use(notFoundHandler);
 
-// Handler global des erreurs
-app.use(errorHandler);
-
 // Démarrage du serveur
 const PORT = parseInt(process.env.PORT, 10) || 4000;
 const HOST = '0.0.0.0';

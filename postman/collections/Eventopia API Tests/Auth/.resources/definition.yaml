@@ -1,0 +1,3 @@
+$kind: collection
+description: 'Tests d authentification - Register, Login, Refresh, Me, Logout'
+order: 2000

@@ -1,0 +1,31 @@
+$kind: http-request
+name: List All Categories
+method: GET
+url: '{{baseUrl}}/api/categories'
+order: 4000
+headers:
+  - key: Authorization
+    value: 'Bearer {{accessToken}}'
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response contains at least 3 categories", function () {
+          const json = pm.response.json();
+          const categories = Array.isArray(json) ? json : json.categories;
+          pm.expect(categories).to.be.an("array");
+          pm.expect(categories.length).to.be.at.least(3);
+      });
+
+      pm.test("Categories contain Concert, Sport, and Conférence", function () {
+          const json = pm.response.json();
+          const categories = Array.isArray(json) ? json : json.categories;
+          const names = categories.map(c => c.name);
+          pm.expect(names).to.include("Concert");
+          pm.expect(names).to.include("Sport");
+          pm.expect(names).to.include("Conférence");
+      });
+    language: text/javascript

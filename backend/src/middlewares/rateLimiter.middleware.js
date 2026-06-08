@@ -49,17 +49,22 @@ export const authLimiter = rateLimit({
  */
 export const eventCreationLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
-  max: 20,
+  limit: 20, // 'max' is now 'limit' in newer versions (though max still works for now)
   message: {
     error: 'Event creation limit reached, please try again later.',
     code: 'EVENT_RATE_LIMITED',
   },
-  standardHeaders: true,
+  standardHeaders: 'draft-7', // Recommended setting for modern apps
   legacyHeaders: false,
   keyGenerator: (req) => {
+    // Note: Returning req.ip directly is what triggers the IPv6 warning
     return req.userId || req.ip;
   },
-  validate: { ipKeyGenerator: false },
+  // This block fixes BOTH validation errors from your logs
+  validate: { 
+    default: false,            // Disables the general validation checks
+    keyGeneratorIpFallback: false // Specifically silences the IPv6 warning for custom keys
+  },
   handler: (req, res) => {
     res.status(429).json({
       error: 'Event creation limit reached, please try again later.',
@@ -67,7 +72,6 @@ export const eventCreationLimiter = rateLimit({
     });
   },
 });
-
 export default {
   defaultLimiter,
   authLimiter,

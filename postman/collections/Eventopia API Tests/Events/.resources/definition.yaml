@@ -1,0 +1,3 @@
+$kind: collection
+description: 'CRUD complet sur les événements'
+order: 4000

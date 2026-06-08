@@ -27,6 +27,9 @@ COPY --from=dependencies /app/node_modules ./node_modules
 # Copier le code source
 COPY . .
 
+# Installer `wget` pour que le HEALTHCHECK fonctionne dans l'image alpine
+RUN apk add --no-cache wget
+
 # Créer les dossiers nécessaires
 RUN mkdir -p uploads logs && \
     chown -R appuser:appgroup /app

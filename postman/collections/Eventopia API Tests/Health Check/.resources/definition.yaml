@@ -1,0 +1,3 @@
+$kind: collection
+description: "Vérification de la santé de l API"
+order: 1000

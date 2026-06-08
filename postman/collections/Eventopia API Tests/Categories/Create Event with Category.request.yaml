@@ -1,0 +1,45 @@
+$kind: http-request
+name: Create Event with Category
+method: POST
+url: '{{baseUrl}}/api/events'
+order: 7000
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{accessToken}}'
+body:
+  type: json
+  content: |-
+    {
+      "title": "Concert de Jazz",
+      "description": "Un concert de jazz pour tester les catégories",
+      "location": "Lyon, France",
+      "startDatetime": "2026-07-20T20:00:00Z",
+      "endDatetime": "2026-07-20T23:00:00Z",
+      "capacity": 200,
+      "price": 35.00,
+      "currency": "EUR",
+      "tags": ["jazz", "musique"],
+      "status": "DRAFT",
+      "category_id": "{{categoryId1}}"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 201", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("Response has event with id", function () {
+          const json = pm.response.json();
+          const event = json.event || json;
+          pm.expect(event).to.have.property("id");
+      });
+
+      pm.test("Save categoryEventId", function () {
+          const json = pm.response.json();
+          const event = json.event || json;
+          pm.collectionVariables.set("categoryEventId", event.id);
+      });
+    language: text/javascript

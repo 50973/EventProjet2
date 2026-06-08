@@ -1,0 +1,46 @@
+$kind: http-request
+name: Create Event
+method: POST
+url: '{{baseUrl}}/events'
+order: 1000
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{accessToken}}'
+body:
+  type: json
+  content: |-
+    {
+      "title": "Test Event Eventopia",
+      "description": "Un événement de test pour valider l API",
+      "location": "Paris, France",
+      "startDatetime": "2026-06-15T10:00:00Z",
+      "endDatetime": "2026-06-15T18:00:00Z",
+      "capacity": 100,
+      "price": 25.00,
+      "currency": "EUR",
+      "tags": ["test", "api"],
+      "status": "DRAFT"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 201", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("Response has event", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("event");
+          const event = json.event;
+          pm.expect(event).to.have.property("id");
+          pm.expect(event).to.have.property("title");
+          pm.expect(event.title).to.eql("Test Event Eventopia");
+      });
+
+      pm.test("Save event ID", function () {
+          const event = pm.response.json().event;
+          pm.collectionVariables.set("eventId", event.id);
+      });
+    language: text/javascript

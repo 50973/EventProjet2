@@ -1,0 +1,20 @@
+$kind: http-request
+name: Logout All
+method: POST
+url: '{{baseUrl}}/auth/logout-all'
+order: 6000
+headers:
+  - key: Authorization
+    value: 'Bearer {{accessToken}}'
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response has success message", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("message");
+      });
+    language: text/javascript

@@ -1,0 +1,31 @@
+$kind: http-request
+name: Create Duplicate Category - 409
+method: POST
+url: '{{baseUrl}}/api/categories'
+order: 1000
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{accessToken}}'
+body:
+  type: json
+  content: |-
+    {
+      "name": "Concert"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 409 (Conflict)", function () {
+          pm.response.to.have.status(409);
+      });
+
+      pm.test("Response indicates duplicate/conflict error", function () {
+          const json = pm.response.json();
+          const message = (json.message || json.error || "").toLowerCase();
+          pm.expect(message).to.satisfy(function (msg) {
+              return msg.includes("duplicate") || msg.includes("conflict") || msg.includes("already exists") || msg.includes("existe");
+          }, "Response should indicate a duplicate or conflict error");
+      });
+    language: text/javascript

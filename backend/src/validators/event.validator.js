@@ -108,6 +108,7 @@ export const listEventsSchema = {
     startDate: Joi.date().iso(),
     endDate: Joi.date().iso(),
     organizerId: Joi.string().uuid(),
+    categoryId: Joi.string().uuid(),
     sortBy: Joi.string().valid('start_datetime', 'price', 'created_at').default('start_datetime'),
     sortOrder: Joi.string().valid('asc', 'desc').default('asc'),
   }),

@@ -1,0 +1,15 @@
+$kind: http-request
+name: Cancel Inscription
+method: DELETE
+url: '{{baseUrl}}/inscriptions/{{inscriptionId}}'
+order: 4000
+headers:
+  - key: Authorization
+    value: 'Bearer {{accessToken}}'
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200 or 204", function () {
+          pm.expect(pm.response.code).to.be.oneOf([200, 204]);
+      });
+    language: text/javascript

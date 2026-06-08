@@ -1,0 +1,15 @@
+$kind: http-request
+name: Get Nonexistent Category - 404
+method: GET
+url: '{{baseUrl}}/api/categories/999999'
+order: 2000
+headers:
+  - key: Authorization
+    value: 'Bearer {{accessToken}}'
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 404", function () {
+          pm.response.to.have.status(404);
+      });
+    language: text/javascript
